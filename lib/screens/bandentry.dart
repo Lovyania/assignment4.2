@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:assignment_4_2/models/bandmodel.dart';
-import 'package:assignment_4_2/database/database.dart';
+import 'package:assignment_4_2/databases/banddatabase.dart';
+import 'package:assignment_4_2/screens/mainscreen.dart';
 
 class AddBandScreen extends StatefulWidget {
   @override
@@ -9,27 +10,31 @@ class AddBandScreen extends StatefulWidget {
 
 class _AddBandScreenState extends State<AddBandScreen> {
   final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _genreController = TextEditingController();
+  String? _selectedGenre;
+  final List<String> _genres = ['Rock', 'Pop', 'Hip-hop', 'Jazz', 'Country'];
 
   @override
   void dispose() {
     _nameController.dispose();
-    _genreController.dispose();
     super.dispose();
   }
 
   void _submitForm() async {
     final name = _nameController.text.trim();
-    final genre = _genreController.text.trim();
-
-    if (name.isEmpty || genre.isEmpty) {
+    if (name.isEmpty || _selectedGenre == null) {
       return;
     }
 
-    final band = Band(name: name, genre: genre);
-    await BandsDatabase.instance.create(band);
+    final band = Band(name: name, genre: _selectedGenre!);
+    await BandsDatabase.instance.createBand(band);
 
     Navigator.pop(context);
+
+    // Refresh the bands screen
+    await Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => BandsScreen()),
+    );
   }
 
   @override
@@ -50,11 +55,22 @@ class _AddBandScreenState extends State<AddBandScreen> {
               ),
             ),
             SizedBox(height: 8.0),
-            TextField(
-              controller: _genreController,
+            DropdownButtonFormField<String>(
               decoration: InputDecoration(
                 labelText: 'Genre',
               ),
+              value: _selectedGenre,
+              onChanged: (String? value) {
+                setState(() {
+                  _selectedGenre = value;
+                });
+              },
+              items: _genres.map((String genre) {
+                return DropdownMenuItem<String>(
+                  value: genre,
+                  child: Text(genre),
+                );
+              }).toList(),
             ),
             SizedBox(height: 16.0),
             ElevatedButton(

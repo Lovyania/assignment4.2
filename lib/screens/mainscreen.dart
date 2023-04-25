@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:assignment_4_2/screens/bandentry.dart';
 import 'package:assignment_4_2/models/bandmodel.dart';
-import 'package:assignment_4_2/database/database.dart';
+import 'package:assignment_4_2/databases/banddatabase.dart';
+import 'package:assignment_4_2/screens/banddetailscreen.dart';
 
 class BandsScreen extends StatefulWidget {
   @override
@@ -14,12 +15,13 @@ class _BandsScreenState extends State<BandsScreen> {
   @override
   void initState() {
     super.initState();
-    _bandsFuture = BandsDatabase.instance.readAll();
+    _bandsFuture = BandsDatabase.instance.readAllBands();
+    _bandsFuture.then((bands) => print('Number of bands: ${bands.length}'));
   }
 
   Future<void> _refreshBands() async {
     setState(() {
-      _bandsFuture = BandsDatabase.instance.readAll();
+      _bandsFuture = BandsDatabase.instance.readAllBands();
     });
   }
 
@@ -41,6 +43,16 @@ class _BandsScreenState extends State<BandsScreen> {
                 return ListTile(
                   title: Text(band.name),
                   subtitle: Text(band.genre),
+                  onTap: () async {
+                    final result = await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => BandDetailsScreen(band: band)),
+                    );
+                    if (result != null) {
+                      await _refreshBands();
+                    }
+                  },
                 );
               },
             );

@@ -1,17 +1,17 @@
 class Band {
-  int id;
+  int? bandId;
   String name;
   String genre;
 
   Band({
-    this.id = 0, // set default value to 0
+    this.bandId,
     required this.name,
     required this.genre,
   });
 
   Map<String, dynamic> toMap() {
     return {
-      'id': id,
+      'bandId': bandId,
       'name': name,
       'genre': genre,
     };
@@ -19,7 +19,7 @@ class Band {
 
   static Band fromMap(Map<String, dynamic> map) {
     return Band(
-      id: map['id'],
+      bandId: map['bandId'],
       name: map['name'],
       genre: map['genre'],
     );
