@@ -78,7 +78,7 @@ class _AddSongScreenState extends State<AddSongScreen> {
             Spacer(),
             ElevatedButton(
               onPressed: _saveSong,
-              child: const Text('Add Song'),
+              child: const Text('Save'),
             ),
           ],
         ),
