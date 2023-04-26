@@ -77,8 +77,17 @@ class _AddSongScreenState extends State<AddSongScreen> {
             ),
             Spacer(),
             ElevatedButton(
-              onPressed: _saveSong,
-              child: Text('Save'),
+              onPressed: () async {
+                await Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => AddSongScreen(bandId: band.bandId!),
+                  ),
+                );
+                // Refresh the song list after the AddSongScreen is dismissed
+                setState(() {});
+              },
+              child: Text('Add Song'),
             ),
           ],
         ),

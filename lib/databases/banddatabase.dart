@@ -46,7 +46,7 @@ class BandsDatabase {
         "$columnTitle TEXT,"
         "$columnReleaseYear INTEGER,"
         "$columnBandId INTEGER,"
-        "FOREIGN KEY ($columnBand) REFERENCES $tableBands($columnBandId))");
+        "FOREIGN KEY ($columnBandId) REFERENCES $tableBands($columnBandId))");
   }
 
   Future<void> createBand(Band band) async {
