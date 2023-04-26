@@ -62,7 +62,7 @@ class _BandsScreenState extends State<BandsScreen> {
               child: Text('Error: ${snapshot.error}'),
             );
           } else {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           }
@@ -76,7 +76,7 @@ class _BandsScreenState extends State<BandsScreen> {
           );
           await _refreshBands();
         },
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }
