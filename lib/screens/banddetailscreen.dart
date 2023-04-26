@@ -77,14 +77,12 @@ class _BandDetailsScreenState extends State<BandDetailsScreen> {
               },
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: ElevatedButton(
-              onPressed: _addSong,
-              child: Text('Add Song'),
-            ),
-          ),
         ],
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: _addSong,
+        icon: Icon(Icons.add),
+        label: const Text('Add song'),
       ),
     );
   }

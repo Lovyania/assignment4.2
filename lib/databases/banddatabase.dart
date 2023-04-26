@@ -47,6 +47,11 @@ class BandsDatabase {
         "$columnReleaseYear INTEGER,"
         "$columnBandId INTEGER,"
         "FOREIGN KEY ($columnBandId) REFERENCES $tableBands($columnBandId))");
+
+    await db.execute("CREATE TABLE $columnGenre ("
+        "$columnBandId INTEGER PRIMARY KEY,"
+        "$columnName TEXT,"
+        "$columnGenre TEXT)");
   }
 
   Future<void> createBand(Band band) async {
