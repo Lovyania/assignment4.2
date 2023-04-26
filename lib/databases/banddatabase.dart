@@ -3,16 +3,16 @@ import 'package:sqflite/sqflite.dart';
 import 'package:assignment_4_2/models/bandmodel.dart';
 import 'package:assignment_4_2/models/songmodel.dart';
 
-final String tableBands = 'bands';
-final String columnBandId = 'bandId';
-final String columnName = 'name';
-final String columnGenre = 'genre';
+const String tableBands = 'bands';
+const String columnBandId = 'bandId';
+const String columnName = 'name';
+const String columnGenre = 'genre';
 
-final String tableSongs = 'songs';
-final String columnSongId = 'songId';
-final String columnTitle = 'title';
-final String columnReleaseYear = 'releaseYear';
-final String columnBand = 'band';
+const String tableSongs = 'songs';
+const String columnSongId = 'songId';
+const String columnTitle = 'title';
+const String columnReleaseYear = 'releaseYear';
+const String columnBand = 'band';
 
 class BandsDatabase {
   static final BandsDatabase instance = BandsDatabase._init();
@@ -61,7 +61,7 @@ class BandsDatabase {
   Future<List<Band>> readAllBands() async {
     final db = await instance.database;
 
-    final orderBy = '$columnName ASC';
+    const orderBy = '$columnName ASC';
     final result = await db.query(tableBands, orderBy: orderBy);
 
     return result.map((json) => Band.fromMap(json)).toList();
@@ -100,7 +100,7 @@ class BandsDatabase {
   Future<List<Song>> readAllSongs() async {
     final db = await instance.database;
 
-    final orderBy = '$columnTitle ASC';
+    const orderBy = '$columnTitle ASC';
     final result = await db.query(tableSongs, orderBy: orderBy);
 
     return result.map((json) => Song.fromMap(json)).toList();
@@ -128,14 +128,11 @@ class BandsDatabase {
   }
 
   Future<List<Song>> getSongsByBandId(int bandId) async {
-    final db = await database;
-    final songs = await db.query(
-      tableSongs,
-      where: '$bandId = ?',
-      whereArgs: [bandId],
-    );
-    return List.generate(songs.length, (i) {
-      return Song.fromMap(songs[i]);
-    });
+    final db = await instance.database;
+    final result =
+        await db.query('songs', where: 'bandId = ?', whereArgs: [bandId]);
+    final songs = result.map((json) => Song.fromMap(json)).toList();
+    print('Songs for band $bandId: $songs');
+    return songs;
   }
 }

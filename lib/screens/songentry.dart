@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:assignment_4_2/models/songmodel.dart';
-import 'package:assignment_4_2/models/bandmodel.dart';
 import 'package:assignment_4_2/databases/banddatabase.dart';
 
 class AddSongScreen extends StatefulWidget {
@@ -78,15 +77,7 @@ class _AddSongScreenState extends State<AddSongScreen> {
             ),
             Spacer(),
             ElevatedButton(
-              onPressed: () async {
-                await Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => AddSongScreen(bandId: widget.bandId),
-                  ),
-                );
-                setState(() {});
-              },
+              onPressed: _saveSong,
               child: const Text('Add Song'),
             ),
           ],
