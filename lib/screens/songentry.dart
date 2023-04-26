@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:assignment_4_2/models/songmodel.dart';
+import 'package:assignment_4_2/models/bandmodel.dart';
 import 'package:assignment_4_2/databases/banddatabase.dart';
 
 class AddSongScreen extends StatefulWidget {
@@ -53,7 +54,7 @@ class _AddSongScreenState extends State<AddSongScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            const Text(
               'Song Title',
               style: TextStyle(fontSize: 16.0),
             ),
@@ -63,8 +64,8 @@ class _AddSongScreenState extends State<AddSongScreen> {
                 hintText: 'Enter song title',
               ),
             ),
-            SizedBox(height: 16.0),
-            Text(
+            const SizedBox(height: 16.0),
+            const Text(
               'Release Year',
               style: TextStyle(fontSize: 16.0),
             ),
@@ -81,13 +82,12 @@ class _AddSongScreenState extends State<AddSongScreen> {
                 await Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => AddSongScreen(bandId: band.bandId!),
+                    builder: (context) => AddSongScreen(bandId: widget.bandId),
                   ),
                 );
-                // Refresh the song list after the AddSongScreen is dismissed
                 setState(() {});
               },
-              child: Text('Add Song'),
+              child: const Text('Add Song'),
             ),
           ],
         ),
