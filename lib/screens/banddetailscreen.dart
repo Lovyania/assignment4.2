@@ -4,39 +4,65 @@ import 'package:assignment_4_2/models/songmodel.dart';
 import 'package:assignment_4_2/models/bandmodel.dart';
 import 'package:assignment_4_2/databases/banddatabase.dart';
 
-class BandDetailsScreen extends StatelessWidget {
+class BandDetailsScreen extends StatefulWidget {
   final Band band;
 
   const BandDetailsScreen({Key? key, required this.band}) : super(key: key);
 
   @override
+  _BandDetailsScreenState createState() => _BandDetailsScreenState();
+}
+
+class _BandDetailsScreenState extends State<BandDetailsScreen> {
+  late Future<List<Song>> _songsFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _songsFuture = BandsDatabase.instance.getSongsByBandId(widget.band.bandId!);
+  }
+
+  void _addSong() async {
+    await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => AddSongScreen(bandId: widget.band.bandId!),
+      ),
+    );
+    setState(() {
+      _songsFuture =
+          BandsDatabase.instance.getSongsByBandId(widget.band.bandId!);
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(band.name),
+        title: Text(widget.band.name),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            padding: EdgeInsets.all(16),
+            padding: const EdgeInsets.all(16),
             color: Colors.grey[300],
             child: Text(
-              band.genre,
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              widget.band.genre,
+              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           Expanded(
             child: FutureBuilder<List<Song>>(
-              future: BandsDatabase.instance.getSongsByBandId(band.bandId!),
+              future: _songsFuture,
               builder: (context, snapshot) {
                 if (!snapshot.hasData) {
                   return Center(child: CircularProgressIndicator());
                 }
                 final songs = snapshot.data!;
                 if (songs.isEmpty) {
-                  return Center(child: Text('No songs found'));
+                  return const Center(child: Text('No songs found'));
                 }
                 return ListView.builder(
                   itemCount: songs.length,
@@ -54,15 +80,7 @@ class BandDetailsScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: ElevatedButton(
-              onPressed: () async {
-                await Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => AddSongScreen(bandId: band.bandId!),
-                  ),
-                );
-                // Find an alternative way to update the UI after a new song is added
-              },
+              onPressed: _addSong,
               child: Text('Add Song'),
             ),
           ),
