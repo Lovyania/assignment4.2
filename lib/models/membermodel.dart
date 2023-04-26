@@ -1,3 +1,10 @@
+/*
+ pa check na lang kung tama tysm
+
+ nilagay ko na bandId and songId kasi diba
+ dapat associated yung member sa band and song?
+*/
+
 class Member {
   int? memberId;
   String member;
