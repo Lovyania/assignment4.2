@@ -62,7 +62,13 @@ class _BandDetailsScreenState extends State<BandDetailsScreen> {
                 }
                 final songs = snapshot.data!;
                 if (songs.isEmpty) {
-                  return const Center(child: Text('No songs found'));
+                  return const Center(
+                      child: Text(
+                        'No songs found',
+                        style: TextStyle(
+                          fontSize: 18),
+                      ),
+                  );
                 }
                 return ListView.builder(
                   itemCount: songs.length,
