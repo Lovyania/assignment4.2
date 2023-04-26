@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:assignment_4_2/models/songmodel.dart';
-import 'package:assignment_4_2/models/bandmodel.dart';
 import 'package:assignment_4_2/databases/banddatabase.dart';
 
 class AddSongScreen extends StatefulWidget {

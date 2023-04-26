@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:assignment_4_2/models/bandmodel.dart';
 import 'package:assignment_4_2/databases/banddatabase.dart';
-import 'package:assignment_4_2/screens/mainscreen.dart';
 
 class AddBandScreen extends StatefulWidget {
   @override
@@ -28,13 +27,7 @@ class _AddBandScreenState extends State<AddBandScreen> {
     final band = Band(name: name, genre: _selectedGenre!);
     await BandsDatabase.instance.createBand(band);
 
-    Navigator.pop(context);
-
-    // Refresh the bands screen
-    await Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => BandsScreen()),
-    );
+    Navigator.pop(context, true);
   }
 
   @override

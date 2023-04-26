@@ -17,6 +17,7 @@ class _BandsScreenState extends State<BandsScreen> {
     super.initState();
     _bandsFuture = BandsDatabase.instance.readAllBands();
     _bandsFuture.then((bands) => print('Number of bands: ${bands.length}'));
+    _bandsFuture.then((bands) => print('Number of bands: ${bands.length}'));
   }
 
   Future<void> _refreshBands() async {
@@ -31,7 +32,7 @@ class _BandsScreenState extends State<BandsScreen> {
       appBar: AppBar(
         title: Text('Bands'),
       ),
-      body: FutureBuilder(
+      body: FutureBuilder<List<Band>>(
         future: _bandsFuture,
         builder: (BuildContext context, AsyncSnapshot<List<Band>> snapshot) {
           if (snapshot.hasData) {

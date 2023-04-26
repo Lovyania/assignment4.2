@@ -45,7 +45,7 @@ class BandsDatabase {
         "$columnSongId INTEGER PRIMARY KEY,"
         "$columnTitle TEXT,"
         "$columnReleaseYear INTEGER,"
-        "$columnBand INTEGER,"
+        "$columnBandId INTEGER,"
         "FOREIGN KEY ($columnBand) REFERENCES $tableBands($columnBandId))");
   }
 

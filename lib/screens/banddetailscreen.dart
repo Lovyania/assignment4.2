@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:assignment_4_2/screens/songentry.dart';
+import 'package:assignment_4_2/models/songmodel.dart';
 import 'package:assignment_4_2/models/bandmodel.dart';
 import 'package:assignment_4_2/databases/banddatabase.dart';
 
@@ -60,7 +61,7 @@ class BandDetailsScreen extends StatelessWidget {
                     builder: (context) => AddSongScreen(bandId: band.bandId!),
                   ),
                 );
-                setState(() {});
+                // Find an alternative way to update the UI after a new song is added
               },
               child: Text('Add Song'),
             ),
