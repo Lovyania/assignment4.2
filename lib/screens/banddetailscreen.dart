@@ -42,18 +42,38 @@ class _BandDetailsScreenState extends State<BandDetailsScreen> {
         title: Text(widget.band.name),
       ),
       body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
             padding: const EdgeInsets.all(16),
             color: Colors.grey[300],
-            child: Text(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+              Image.asset(
+              'assets/images/logo.png',
+              width: 250,
+              height: 250,
+            ),
+            const SizedBox(height: 16),
+            Text(
               widget.band.genre,
               style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
+           ],
+          ),
+         ),
+          const SizedBox(height: 16),
+          const Text(
+            'Members',
+            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 16),
-          Expanded(
+          const Text(
+            'Songs',
+            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          ),
+         Expanded(
             child: FutureBuilder<List<Song>>(
               future: _songsFuture,
               builder: (context, snapshot) {
