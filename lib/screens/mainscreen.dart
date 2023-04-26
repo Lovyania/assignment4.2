@@ -49,22 +49,26 @@ class _BandsScreenState extends State<BandsScreen> {
                       itemCount: bands.length,
                       itemBuilder: (BuildContext context, int index) {
                         final band = bands[index];
-                        return ListTile(
-                          title: Text(band.name),
-                          subtitle: Text(band.genre),
-                          onTap: () async {
-                            final result = await Navigator.push(
-                              context,
-                              MaterialPageRoute(
+                        return Container(
+                          margin: const EdgeInsets.all(8.5),
+                          color: Colors.grey[200],
+                          child: ListTile(
+                            title: Text(band.name),
+                            subtitle: Text(band.genre),
+                            onTap: () async {
+                              final result = await Navigator.push(
+                                context,
+                                MaterialPageRoute(
                                   builder: (context) => BandDetailsScreen(band: band)),
                             );
                             if (result != null) {
                               await _refreshBands();
                             }
                           },
-                        );
-                      },
-                    ),
+                        ),
+                       );
+                     },
+                   ),
                   ),
                 ],
               );
