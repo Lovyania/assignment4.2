@@ -15,6 +15,9 @@ class _AddMemberScreenState extends State<AddMemberScreen> {
   late TextEditingController _memberController;
   late TextEditingController _instrumentController;
 
+  String? _selectedinstrument;
+  final List<String> _instruments = ['Vocal', 'Guitar', 'Bass', 'Keyboard', 'Drums'];
+
   @override
   void initState() {
     super.initState();
@@ -68,19 +71,22 @@ class _AddMemberScreenState extends State<AddMemberScreen> {
               ),
             ),
             const SizedBox(height: 16.0),
-            const Text(
-              'Instrument:',
-              style: TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            TextField(
-              controller: _instrumentController,
-              keyboardType: TextInputType.number,
+            DropdownButtonFormField<String>(
               decoration: InputDecoration(
-                hintText: 'Enter instrument',
+                labelText: 'Instrument',
               ),
+              value: _selectedinstrument,
+              onChanged: (String? value) {
+                setState(() {
+                  _selectedinstrument = value;
+                });
+              },
+              items: _instruments.map((String instrument) {
+                return DropdownMenuItem<String>(
+                  value: instrument,
+                  child: Text(instrument),
+                );
+              }).toList(),
             ),
             SizedBox(height: 16.0),
             ElevatedButton(
