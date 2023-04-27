@@ -50,7 +50,7 @@ class _AddMemberScreenState extends State<AddMemberScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add Song'),
+        title: Text('Add Band Member'),
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
