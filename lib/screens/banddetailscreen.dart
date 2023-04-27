@@ -105,10 +105,22 @@ class _BandDetailsScreenState extends State<BandDetailsScreen> {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: _addSong,
-        icon: Icon(Icons.add),
-        label: const Text('Add song'),
+      floatingActionButton: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SizedBox(width: 26),
+          FloatingActionButton.extended(
+            onPressed: _addSong,
+            icon: Icon(Icons.person),
+            label: Text('Add band member'),
+          ),
+          SizedBox(width: 26),
+          FloatingActionButton.extended(
+            onPressed: _addSong,
+            icon: Icon(Icons.music_note),
+            label: Text('Add song'),
+          ),
+        ],
       ),
     );
   }
