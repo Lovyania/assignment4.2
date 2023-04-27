@@ -71,9 +71,16 @@ class _AddMemberScreenState extends State<AddMemberScreen> {
               ),
             ),
             const SizedBox(height: 16.0),
+            const Text(
+              'Instrument:',
+              style: TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             DropdownButtonFormField<String>(
               decoration: InputDecoration(
-                labelText: 'Instrument',
+                labelText: 'Select instrument',
               ),
               value: _selectedinstrument,
               onChanged: (String? value) {

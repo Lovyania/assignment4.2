@@ -41,16 +41,30 @@ class _AddBandScreenState extends State<AddBandScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            const Text(
+              'Band Name:',
+              style: TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             TextField(
               controller: _nameController,
               decoration: InputDecoration(
-                labelText: 'Name',
+                labelText: 'Enter Band Name',
               ),
             ),
-            SizedBox(height: 8.0),
+            SizedBox(height: 10.0),
+            const Text(
+              'Genre:',
+              style: TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             DropdownButtonFormField<String>(
               decoration: InputDecoration(
-                labelText: 'Genre',
+                labelText: 'Select genre',
               ),
               value: _selectedGenre,
               onChanged: (String? value) {
