@@ -1,3 +1,4 @@
+import 'package:assignment_4_2/models/membermodel.dart';
 import 'package:flutter/material.dart';
 import 'package:assignment_4_2/models/songmodel.dart';
 import 'package:assignment_4_2/databases/banddatabase.dart';
@@ -29,15 +30,15 @@ class _AddMemberScreenState extends State<AddMemberScreen> {
   }
 
   void _saveMember() async {
-    final member = _memberController.text.trim();
+    final memberName = _memberController.text.trim();
     final instrument = _instrumentController.text.trim();
-    if (member.isNotEmpty && instrument.isNotEmpty) {
-      final song = Song(
+    if (memberName.isNotEmpty && instrument.isNotEmpty) {
+      final member = Member(
         bandId: widget.bandId,
-        title: member,
-        releaseYear: int.parse(instrument),
+        memberName: memberName,
+        instrument: instrument,
       );
-      await BandsDatabase.instance.createSong(song);
+      await BandsDatabase.instance.createMember(member);
       Navigator.pop(context);
     }
   }
@@ -54,7 +55,7 @@ class _AddMemberScreenState extends State<AddMemberScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
-              'Song Title:',
+              'Member Name:',
               style: TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
@@ -63,12 +64,12 @@ class _AddMemberScreenState extends State<AddMemberScreen> {
             TextField(
               controller: _memberController,
               decoration: InputDecoration(
-                hintText: 'Enter band member',
+                hintText: 'Enter band member name',
               ),
             ),
             const SizedBox(height: 16.0),
             const Text(
-              'Released in Year:',
+              'Instrument:',
               style: TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.bold,

@@ -23,21 +23,7 @@ class _BandDetailsScreenState extends State<BandDetailsScreen> {
   void initState() {
     super.initState();
     _songsFuture = BandsDatabase.instance.getSongsByBandId(widget.band.bandId!);
-    _membersFuture =
-        BandsDatabase.instance.getMembersByBandId(widget.band.bandId!);
-  }
-
-  void _addMember() async {
-    await Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => AddMemberScreen(bandId: widget.band.bandId!),
-      ),
-    );
-    setState(() {
-      _membersFuture =
-          BandsDatabase.instance.getMembersByBandId(widget.band.bandId!);
-    });
+    _membersFuture = BandsDatabase.instance.getMembersByBandId(widget.band.bandId!);
   }
 
   void _addSong() async {
@@ -50,6 +36,19 @@ class _BandDetailsScreenState extends State<BandDetailsScreen> {
     setState(() {
       _songsFuture =
           BandsDatabase.instance.getSongsByBandId(widget.band.bandId!);
+    });
+  }
+
+  void _addMember() async {
+    await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => AddMemberScreen(bandId: widget.band.bandId!),
+      ),
+    );
+    setState(() {
+      _membersFuture =
+          BandsDatabase.instance.getMembersByBandId(widget.band.bandId!);
     });
   }
 
@@ -68,39 +67,39 @@ class _BandDetailsScreenState extends State<BandDetailsScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Image.asset(
-                  'assets/images/genre.png',
-                  width: 250,
-                  height: 250,
-                ),
-                const SizedBox(height: 16),
-                Text(
-                  widget.band.genre,
-                  style: const TextStyle(
-                      fontSize: 24, fontWeight: FontWeight.bold),
-                ),
-              ],
+              Image.asset(
+              'assets/images/genre.png',
+              width: 250,
+              height: 250,
             ),
+            const SizedBox(height: 16),
+            Text(
+              widget.band.genre,
+              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            ),
+           ],
           ),
+         ),
           const SizedBox(height: 16),
           const Text(
             'Members',
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
           Expanded(
             child: FutureBuilder<List<Member>>(
               future: _membersFuture,
               builder: (context, snapshot) {
                 if (!snapshot.hasData) {
-                  return const Center(child: CircularProgressIndicator());
+                  return Center(child: CircularProgressIndicator());
                 }
                 final members = snapshot.data!;
                 if (members.isEmpty) {
                   return const Center(
-                    child: Text(
-                      'No members found',
-                      style: TextStyle(fontSize: 18),
-                    ),
+                      child: Text(
+                        'No members found',
+                        style: TextStyle(
+                          fontSize: 18),
+                      ),
                   );
                 }
                 return ListView.builder(
@@ -109,7 +108,42 @@ class _BandDetailsScreenState extends State<BandDetailsScreen> {
                     final member = members[index];
                     return ListTile(
                       title: Text(member.memberName),
-                      subtitle: Text(member.instrument),
+                      subtitle: Text('Type of instrument: ${member.instrument}'),
+                    );
+                  },
+                );
+              },
+            ),
+          ),
+          const SizedBox(height: 16),
+          const Text(
+            'Songs',
+            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          ),
+         Expanded(
+            child: FutureBuilder<List<Song>>(
+              future: _songsFuture,
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) {
+                  return Center(child: CircularProgressIndicator());
+                }
+                final songs = snapshot.data!;
+                if (songs.isEmpty) {
+                  return const Center(
+                      child: Text(
+                        'No songs found',
+                        style: TextStyle(
+                          fontSize: 18),
+                      ),
+                  );
+                }
+                return ListView.builder(
+                  itemCount: songs.length,
+                  itemBuilder: (context, index) {
+                    final song = songs[index];
+                    return ListTile(
+                      title: Text(song.title),
+                      subtitle: Text('Released in ${song.releaseYear}'),
                     );
                   },
                 );
@@ -123,7 +157,7 @@ class _BandDetailsScreenState extends State<BandDetailsScreen> {
         children: [
           SizedBox(width: 26),
           FloatingActionButton.extended(
-            onPressed: _addSong,
+            onPressed: _addMember,
             icon: Icon(Icons.person),
             label: Text('Add band member'),
           ),
