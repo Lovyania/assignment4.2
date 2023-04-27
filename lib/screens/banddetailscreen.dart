@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:assignment_4_2/screens/songentry.dart';
-import 'package:assignment_4_2/screens/bandmemberentry.dart';
 import 'package:assignment_4_2/models/songmodel.dart';
-import 'package:assignment_4_2/models/membermodel.dart';
 import 'package:assignment_4_2/models/bandmodel.dart';
 import 'package:assignment_4_2/databases/banddatabase.dart';
 
@@ -17,27 +15,11 @@ class BandDetailsScreen extends StatefulWidget {
 
 class _BandDetailsScreenState extends State<BandDetailsScreen> {
   late Future<List<Song>> _songsFuture;
-  late Future<List<Member>> _membersFuture;
 
   @override
   void initState() {
     super.initState();
     _songsFuture = BandsDatabase.instance.getSongsByBandId(widget.band.bandId!);
-    _membersFuture =
-        BandsDatabase.instance.getMembersByBandId(widget.band.bandId!);
-  }
-
-  void _addMember() async {
-    await Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => AddMemberScreen(bandId: widget.band.bandId!),
-      ),
-    );
-    setState(() {
-      _membersFuture =
-          BandsDatabase.instance.getMembersByBandId(widget.band.bandId!);
-    });
   }
 
   void _addSong() async {
@@ -85,31 +67,36 @@ class _BandDetailsScreenState extends State<BandDetailsScreen> {
           const SizedBox(height: 16),
           const Text(
             'Members',
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 16),
+          const Text(
+            'Songs',
+            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
           Expanded(
-            child: FutureBuilder<List<Member>>(
-              future: _membersFuture,
+            child: FutureBuilder<List<Song>>(
+              future: _songsFuture,
               builder: (context, snapshot) {
                 if (!snapshot.hasData) {
-                  return const Center(child: CircularProgressIndicator());
+                  return Center(child: CircularProgressIndicator());
                 }
-                final members = snapshot.data!;
-                if (members.isEmpty) {
+                final songs = snapshot.data!;
+                if (songs.isEmpty) {
                   return const Center(
                     child: Text(
-                      'No members found',
+                      'No songs found',
                       style: TextStyle(fontSize: 18),
                     ),
                   );
                 }
                 return ListView.builder(
-                  itemCount: members.length,
+                  itemCount: songs.length,
                   itemBuilder: (context, index) {
-                    final member = members[index];
+                    final song = songs[index];
                     return ListTile(
-                      title: Text(member.memberName),
-                      subtitle: Text(member.instrument),
+                      title: Text(song.title),
+                      subtitle: Text('Released in ${song.releaseYear}'),
                     );
                   },
                 );
