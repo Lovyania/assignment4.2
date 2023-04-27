@@ -23,7 +23,7 @@ class Member {
   static Member fromMap(Map<String, dynamic> map) {
     return Member(
       memberId: map['memberId'],
-      member: map['member'],
+      memberName: map['memberName'],
       instrument: map['instrument'],
       bandId: map['bandId'],
     );
