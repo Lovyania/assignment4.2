@@ -69,8 +69,8 @@ class _BandDetailsScreenState extends State<BandDetailsScreen> {
               children: [
               Image.asset(
               'assets/images/genre.png',
-              width: 250,
-              height: 250,
+              width: 180,
+              height: 180,
             ),
             const SizedBox(height: 16),
             Text(
