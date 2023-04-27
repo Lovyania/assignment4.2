@@ -54,8 +54,11 @@ class _AddSongScreenState extends State<AddSongScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
-              'Song Title',
-              style: TextStyle(fontSize: 16.0),
+              'Song Title:',
+              style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+              ),
             ),
             TextField(
               controller: _titleController,
@@ -65,8 +68,11 @@ class _AddSongScreenState extends State<AddSongScreen> {
             ),
             const SizedBox(height: 16.0),
             const Text(
-              'Release Year',
-              style: TextStyle(fontSize: 16.0),
+              'Released in Year:',
+              style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+              ),
             ),
             TextField(
               controller: _yearController,
@@ -75,10 +81,12 @@ class _AddSongScreenState extends State<AddSongScreen> {
                 hintText: 'Enter release year',
               ),
             ),
-            Spacer(),
+            SizedBox(height: 16.0),
             ElevatedButton(
               onPressed: _saveSong,
-              child: const Text('Add Song'),
+              style: ElevatedButton.styleFrom(
+                  fixedSize: const Size(500, 20)),
+              child: const Text('Save'),
             ),
           ],
         ),

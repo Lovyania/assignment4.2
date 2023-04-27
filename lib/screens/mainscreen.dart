@@ -37,38 +37,54 @@ class _BandsScreenState extends State<BandsScreen> {
         builder: (BuildContext context, AsyncSnapshot<List<Band>> snapshot) {
           if (snapshot.hasData) {
             final bands = snapshot.data!;
-            return ListView.builder(
-              itemCount: bands.length,
-              itemBuilder: (BuildContext context, int index) {
-                final band = bands[index];
-                return ListTile(
-                  title: Text(band.name),
-                  subtitle: Text(band.genre),
-                  onTap: () async {
-                    final result = await Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => BandDetailsScreen(band: band)),
-                    );
-                    if (result != null) {
-                      await _refreshBands();
-                    }
-                  },
-                );
-              },
-            );
+            return Column(
+              children: [
+                Image.asset(
+                  'assets/images/logo.png',
+                  width: 250,
+                  height: 250,
+                ),
+                Flexible(
+                    child: ListView.builder(
+                      itemCount: bands.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        final band = bands[index];
+                        return Container(
+                          margin: const EdgeInsets.all(8.5),
+                          color: Colors.grey[200],
+                          child: ListTile(
+                            title: Text(band.name),
+                            subtitle: Text(band.genre),
+                            onTap: () async {
+                              final result = await Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => BandDetailsScreen(band: band)),
+                            );
+                            if (result != null) {
+                              await _refreshBands();
+                            }
+                          },
+                        ),
+                       );
+                     },
+                   ),
+                  ),
+                ],
+              );
+
           } else if (snapshot.hasError) {
             return Center(
               child: Text('Error: ${snapshot.error}'),
             );
           } else {
-            return const Center(
+            return Center(
               child: CircularProgressIndicator(),
             );
           }
         },
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton.extended(
         onPressed: () async {
           await Navigator.push(
             context,
@@ -76,7 +92,8 @@ class _BandsScreenState extends State<BandsScreen> {
           );
           await _refreshBands();
         },
-        child: const Icon(Icons.add),
+        icon: const Icon(Icons.add),
+        label: const Text('Add band'),
       ),
     );
   }

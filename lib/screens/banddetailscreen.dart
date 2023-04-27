@@ -42,18 +42,38 @@ class _BandDetailsScreenState extends State<BandDetailsScreen> {
         title: Text(widget.band.name),
       ),
       body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
             padding: const EdgeInsets.all(16),
             color: Colors.grey[300],
-            child: Text(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+              Image.asset(
+              'assets/images/logo.png',
+              width: 250,
+              height: 250,
+            ),
+            const SizedBox(height: 16),
+            Text(
               widget.band.genre,
               style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
+           ],
+          ),
+         ),
+          const SizedBox(height: 16),
+          const Text(
+            'Members',
+            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 16),
-          Expanded(
+          const Text(
+            'Songs',
+            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          ),
+         Expanded(
             child: FutureBuilder<List<Song>>(
               future: _songsFuture,
               builder: (context, snapshot) {
@@ -62,7 +82,13 @@ class _BandDetailsScreenState extends State<BandDetailsScreen> {
                 }
                 final songs = snapshot.data!;
                 if (songs.isEmpty) {
-                  return const Center(child: Text('No songs found'));
+                  return const Center(
+                      child: Text(
+                        'No songs found',
+                        style: TextStyle(
+                          fontSize: 18),
+                      ),
+                  );
                 }
                 return ListView.builder(
                   itemCount: songs.length,
@@ -77,14 +103,12 @@ class _BandDetailsScreenState extends State<BandDetailsScreen> {
               },
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: ElevatedButton(
-              onPressed: _addSong,
-              child: Text('Add Song'),
-            ),
-          ),
         ],
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: _addSong,
+        icon: Icon(Icons.add),
+        label: const Text('Add song'),
       ),
     );
   }

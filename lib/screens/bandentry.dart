@@ -68,7 +68,7 @@ class _AddBandScreenState extends State<AddBandScreen> {
             SizedBox(height: 16.0),
             ElevatedButton(
               onPressed: _submitForm,
-              child: Text('Add Band'),
+              child: Text('Save'),
             ),
           ],
         ),
