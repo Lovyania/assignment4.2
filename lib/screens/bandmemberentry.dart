@@ -12,38 +12,26 @@ class AddMemberScreen extends StatefulWidget {
 }
 
 class _AddMemberScreenState extends State<AddMemberScreen> {
-  late TextEditingController _memberController;
-  late TextEditingController _instrumentController;
-
+  final TextEditingController _memberController = TextEditingController();
   String? _selectedinstrument;
   final List<String> _instruments = ['Vocal', 'Guitar', 'Bass', 'Keyboard', 'Drums'];
 
   @override
-  void initState() {
-    super.initState();
-    _memberController = TextEditingController();
-    _instrumentController = TextEditingController();
-  }
-
-  @override
   void dispose() {
     _memberController.dispose();
-    _instrumentController.dispose();
     super.dispose();
   }
 
   void _saveMember() async {
     final memberName = _memberController.text.trim();
-    final instrument = _instrumentController.text.trim();
-    if (memberName.isNotEmpty && instrument.isNotEmpty) {
-      final member = Member(
-        bandId: widget.bandId,
-        memberName: memberName,
-        instrument: instrument,
-      );
-      await BandsDatabase.instance.createMember(member);
-      Navigator.pop(context);
+    if (memberName.isEmpty || _selectedinstrument == null) {
+      return;
     }
+
+    final member = Member(memberName: memberName, instrument: _selectedinstrument!, bandId: widget.bandId);
+    await BandsDatabase.instance.createMember(member);
+
+    Navigator.pop(context, true);
   }
 
   @override

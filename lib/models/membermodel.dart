@@ -14,7 +14,7 @@ class Member {
   Map<String, dynamic> toMap() {
     return {
       'memberId': memberId,
-      'member': memberName,
+      'memberName': memberName,
       'instrument': instrument,
       'bandId': bandId,
     };

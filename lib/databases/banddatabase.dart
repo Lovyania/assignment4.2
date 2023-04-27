@@ -17,7 +17,7 @@ const String columnBand = 'band';
 
 const String tableMembers = 'members';
 const String columnMemberId = 'memberId';
-const String columnMember = 'member';
+const String columnMemberName = 'memberName';
 const String columnInstrument = 'instrument';
 
 class BandsDatabase {
@@ -56,7 +56,7 @@ class BandsDatabase {
 
     await db.execute("CREATE TABLE $tableMembers ("
         "$columnMemberId INTEGER PRIMARY KEY,"
-        "$columnMember TEXT,"
+        "$columnMemberName TEXT,"
         "$columnInstrument TEXT,"
         "$columnBandId INTEGER,"
         "FOREIGN KEY ($columnBandId) REFERENCES $tableBands($columnBandId))");
@@ -143,7 +143,7 @@ class BandsDatabase {
   Future<List<Song>> getSongsByBandId(int bandId) async {
     final db = await instance.database;
     final result =
-        await db.query('songs', where: 'bandId = ?', whereArgs: [bandId]);
+    await db.query('songs', where: 'bandId = ?', whereArgs: [bandId]);
     final songs = result.map((json) => Song.fromMap(json)).toList();
     print('Songs for band $bandId: $songs');
     return songs;
@@ -161,7 +161,7 @@ class BandsDatabase {
   Future<List<Member>> readAllMembers() async {
     final db = await instance.database;
 
-    const orderBy = '$columnMember ASC';
+    const orderBy = '$columnMemberName ASC';
     final result = await db.query(tableMembers, orderBy: orderBy);
 
     return result.map((json) => Member.fromMap(json)).toList();
@@ -191,7 +191,7 @@ class BandsDatabase {
   Future<List<Member>> getMembersByBandId(int bandId) async {
     final db = await instance.database;
     final result =
-        await db.query('members', where: 'bandId = ?', whereArgs: [bandId]);
+    await db.query('members', where: 'bandId = ?', whereArgs: [bandId]);
     final members = result.map((json) => Member.fromMap(json)).toList();
     print('Members for band $bandId: $members');
     return members;
