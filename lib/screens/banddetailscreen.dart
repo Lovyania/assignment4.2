@@ -51,7 +51,7 @@ class _BandDetailsScreenState extends State<BandDetailsScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
               Image.asset(
-              'assets/images/logo.png',
+              'assets/images/genre.png',
               width: 250,
               height: 250,
             ),

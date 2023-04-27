@@ -63,14 +63,14 @@ class BandsDatabase {
 
      sinama ko ulit band and song as its foreign keys
     */
-    await db.execute("CREATE TABLE $tableMembers ("
+    /*await db.execute("CREATE TABLE $tableMembers ("
         "$columnMemberId INTEGER PRIMARY KEY,"
         "$columnMember TEXT,"
         "$columnInstrument TEXT),"
         "$columnBandId INTEGER,"
         "$columnSongId INTEGER,"
         "FOREIGN KEY ($columnBandId) REFERENCES $tableBands($columnBandId)),"
-        "FOREIGN KEY ($columnSongId) REFERENCES $tableSongs($columnSongId))");
+        "FOREIGN KEY ($columnSongId) REFERENCES $tableSongs($columnSongId))");*/
   }
 
   Future<void> createBand(Band band) async {
@@ -163,63 +163,63 @@ class BandsDatabase {
   /*
     pa check na lang kung tama tysm
   */
-  Future<void> createMember(Member member) async {
-    final db = await instance.database;
-    await db.insert(
-      tableMembers,
-      member.toMap(),
-      conflictAlgorithm: ConflictAlgorithm.replace,
-    );
-  }
-
-  Future<List<Member>> readAllMembers() async {
-    final db = await instance.database;
-
-    const orderBy = '$columnMember ASC';
-    final result = await db.query(tableMembers, orderBy: orderBy);
-
-    return result.map((json) => Member.fromMap(json)).toList();
-  }
-
-  Future<int> updateMember(Member member) async {
-    final db = await instance.database;
-
-    return db.update(
-      tableMembers,
-      member.toMap(),
-      where: '$columnMemberId = ?',
-      whereArgs: [member.memberId],
-    );
-  }
-
-  Future<int> deleteMember(int id) async {
-    final db = await instance.database;
-
-    return await db.delete(
-      tableMembers,
-      where: '$columnMemberId = ?',
-      whereArgs: [id],
-    );
-  }
-
-  Future<List<Member>> getMembersByBandId(int bandId) async {
-    final db = await instance.database;
-    final result =
-    await db.query('members', where: 'bandId = ?', whereArgs: [bandId]);
-    final members = result.map((json) => Member.fromMap(json)).toList();
-    print('Members for band $bandId: $members');
-    return members;
-  }
+  // Future<void> createMember(Member member) async {
+  //   final db = await instance.database;
+  //   await db.insert(
+  //     tableMembers,
+  //     member.toMap(),
+  //     conflictAlgorithm: ConflictAlgorithm.replace,
+  //   );
+  // }
+  //
+  // Future<List<Member>> readAllMembers() async {
+  //   final db = await instance.database;
+  //
+  //   const orderBy = '$columnMember ASC';
+  //   final result = await db.query(tableMembers, orderBy: orderBy);
+  //
+  //   return result.map((json) => Member.fromMap(json)).toList();
+  // }
+  //
+  // Future<int> updateMember(Member member) async {
+  //   final db = await instance.database;
+  //
+  //   return db.update(
+  //     tableMembers,
+  //     member.toMap(),
+  //     where: '$columnMemberId = ?',
+  //     whereArgs: [member.memberId],
+  //   );
+  // }
+  //
+  // Future<int> deleteMember(int id) async {
+  //   final db = await instance.database;
+  //
+  //   return await db.delete(
+  //     tableMembers,
+  //     where: '$columnMemberId = ?',
+  //     whereArgs: [id],
+  //   );
+  // }
+  //
+  // Future<List<Member>> getMembersByBandId(int bandId) async {
+  //   final db = await instance.database;
+  //   final result =
+  //   await db.query('members', where: 'bandId = ?', whereArgs: [bandId]);
+  //   final members = result.map((json) => Member.fromMap(json)).toList();
+  //   print('Members for band $bandId: $members');
+  //   return members;
+  // }
 
   /*
     feel ko may mali. comment nalang to kung hindi need tysm
   */
-  Future<List<Member>> getMembersBySongId(int songId) async {
-    final db = await instance.database;
-    final result =
-    await db.query('members', where: 'songId = ?', whereArgs: [songId]);
-    final members = result.map((json) => Member.fromMap(json)).toList();
-    print('Members for song $songId: $members');
-    return members;
-  }
+  // Future<List<Member>> getMembersBySongId(int songId) async {
+  //   final db = await instance.database;
+  //   final result =
+  //   await db.query('members', where: 'songId = ?', whereArgs: [songId]);
+  //   final members = result.map((json) => Member.fromMap(json)).toList();
+  //   print('Members for song $songId: $members');
+  //   return members;
+  // }
 }
