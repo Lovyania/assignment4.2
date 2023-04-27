@@ -50,19 +50,20 @@ class _BandDetailsScreenState extends State<BandDetailsScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-              Image.asset(
-              'assets/images/genre.png',
-              width: 250,
-              height: 250,
+                Image.asset(
+                  'assets/images/genre.png',
+                  width: 250,
+                  height: 250,
+                ),
+                const SizedBox(height: 16),
+                Text(
+                  widget.band.genre,
+                  style: const TextStyle(
+                      fontSize: 24, fontWeight: FontWeight.bold),
+                ),
+              ],
             ),
-            const SizedBox(height: 16),
-            Text(
-              widget.band.genre,
-              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-           ],
           ),
-         ),
           const SizedBox(height: 16),
           const Text(
             'Members',
@@ -73,7 +74,7 @@ class _BandDetailsScreenState extends State<BandDetailsScreen> {
             'Songs',
             style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
-         Expanded(
+          Expanded(
             child: FutureBuilder<List<Song>>(
               future: _songsFuture,
               builder: (context, snapshot) {
@@ -83,11 +84,10 @@ class _BandDetailsScreenState extends State<BandDetailsScreen> {
                 final songs = snapshot.data!;
                 if (songs.isEmpty) {
                   return const Center(
-                      child: Text(
-                        'No songs found',
-                        style: TextStyle(
-                          fontSize: 18),
-                      ),
+                    child: Text(
+                      'No songs found',
+                      style: TextStyle(fontSize: 18),
+                    ),
                   );
                 }
                 return ListView.builder(
@@ -107,7 +107,7 @@ class _BandDetailsScreenState extends State<BandDetailsScreen> {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: _addSong,
-        icon: Icon(Icons.add),
+        icon: const Icon(Icons.add),
         label: const Text('Add song'),
       ),
     );
