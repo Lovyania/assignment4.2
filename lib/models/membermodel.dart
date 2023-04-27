@@ -1,12 +1,12 @@
 class Member {
   int? memberId;
-  String member;
+  String memberName;
   String instrument;
   int bandId;
 
   Member({
     this.memberId,
-    required this.member,
+    required this.memberName,
     required this.instrument,
     required this.bandId,
   });
@@ -14,7 +14,7 @@ class Member {
   Map<String, dynamic> toMap() {
     return {
       'memberId': memberId,
-      'member': member,
+      'member': memberName,
       'instrument': instrument,
       'bandId': bandId,
     };

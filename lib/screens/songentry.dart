@@ -56,8 +56,8 @@ class _AddSongScreenState extends State<AddSongScreen> {
             const Text(
               'Song Title:',
               style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
               ),
             ),
             TextField(
@@ -70,8 +70,8 @@ class _AddSongScreenState extends State<AddSongScreen> {
             const Text(
               'Released in Year:',
               style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
               ),
             ),
             TextField(
@@ -84,8 +84,7 @@ class _AddSongScreenState extends State<AddSongScreen> {
             SizedBox(height: 16.0),
             ElevatedButton(
               onPressed: _saveSong,
-              style: ElevatedButton.styleFrom(
-                  fixedSize: const Size(500, 20)),
+              style: ElevatedButton.styleFrom(fixedSize: const Size(500, 20)),
               child: const Text('Save'),
             ),
           ],
