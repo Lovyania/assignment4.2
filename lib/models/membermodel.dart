@@ -1,23 +1,14 @@
-/*
- pa check na lang kung tama tysm
-
- nilagay ko na bandId and songId kasi diba
- dapat associated yung member sa band and song?
-*/
-
 class Member {
   int? memberId;
   String member;
   String instrument;
   int bandId;
-  int songId;
 
   Member({
-    this. memberId,
+    this.memberId,
     required this.member,
     required this.instrument,
     required this.bandId,
-    required this.songId,
   });
 
   Map<String, dynamic> toMap() {
@@ -26,7 +17,6 @@ class Member {
       'member': member,
       'instrument': instrument,
       'bandId': bandId,
-      'songId': songId,
     };
   }
 
@@ -36,7 +26,6 @@ class Member {
       member: map['member'],
       instrument: map['instrument'],
       bandId: map['bandId'],
-      songId: map['songId'],
     );
   }
 }
